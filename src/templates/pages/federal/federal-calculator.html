@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Federal Tax Calculator{% endblock %}
+
+{% block content %}
+    <div class="card bg-base-100 shadow-xl p-6 max-w-md mx-auto">
+        <h2 class="text-xl font-bold mb-4">Federal Tax Calculator</h2>
+        <form
+                method="post"
+                hx-post="{% url 'federal_tax_calculate' %}"
+                hx-target="#tax-result"
+                hx-swap="outerHTML"
+                class="space-y-4"
+        >
+            {% csrf_token %}
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Annual Income ($)</span>
+                </label>
+                <input
+                        type="number"
+                        name="income"
+                        class="input input-bordered w-full"
+                        placeholder="Enter your income"
+                        required
+                >
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Filing Status</span>
+                </label>
+                <select name="status" class="select select-bordered w-full" required>
+                    <option value="single">Single</option>
+                    <option value="married">Married Filing Jointly</option>
+                    <option value="head_of_household">Head of Household</option>
+                </select>
+            </div>
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text">Deductions ($)</span>
+                </label>
+                <input
+                        type="number"
+                        name="deductions"
+                        class="input input-bordered w-full"
+                        placeholder="Enter deductions"
+                        value="0"
+                >
+            </div>
+            <button type="submit" class="btn btn-primary w-full">Calculate Tax</button>
+        </form>
+
+        <div id="tax-result" class="mt-4">
+        </div>
+
+
+        <!-- Tax Result -->
+        <div id="tax-result" class="mt-4">
+            {% if tax is not None %}
+                <div class="alert alert-info shadow-lg">
+                    <div>
+                        <span>Your estimated federal tax is: <strong>${{ tax }}</strong></span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
