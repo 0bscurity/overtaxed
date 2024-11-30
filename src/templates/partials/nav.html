@@ -1,0 +1,13 @@
+<!-- templates/partials/navbar.html -->
+<nav class="navbar bg-base-100 shadow-md px-4">
+    <div class="flex-1">
+        <a href="/" class="text-xl font-bold">Audit Deez Nutz</a>
+    </div>
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'federal_calculator' %}">Federal Tax Calculator</a></li>
+            <li><a href="{% url 'state_calculator' %}">State Tax Calculator</a></li>
+        </ul>
+    </div>
+</nav>
