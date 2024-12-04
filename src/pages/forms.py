@@ -1,3 +1,5 @@
+from email.policy import default
+
 from django import forms
 
 
@@ -29,4 +31,15 @@ class FederalTaxForm(forms.Form):
             "class": "input input-bordered w-full",
             "placeholder": "Enter deductions"
         })
+    )
+    self_employed = forms.BooleanField(
+        label="I am self-employed",
+        required=False,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox checkbox-primary"})
+    )
+    use_standard_deduction = forms.BooleanField(
+        label="Use Standard Deduction",
+        required=False,
+        initial=True,
+        widget=forms.CheckboxInput(attrs={"class": "checkbox checkbox-primary"})
     )
