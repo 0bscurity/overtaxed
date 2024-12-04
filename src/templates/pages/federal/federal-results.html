@@ -1,15 +1,42 @@
+{% load humanize %}
+
 <div id="tax-result" class="mt-4">
-    {% if tax is not None %}
+  {% if tax is not None %}
     <div class="alert alert-info shadow-lg">
-        <div>
-            <span>Your estimated federal tax is: <strong>${{ tax|floatformat:"0" }}</strong></span>
-        </div>
+      <div>
+        <span>Your estimated federal tax is: <strong>${{ tax|floatformat:"0"|intcomma }}</strong></span>
+      </div>
     </div>
-    {% else %}
+
+    <div tabindex="0" class="collapse collapse-open border border-base-300 bg-base-200 rounded-box mt-4">
+      <input type="checkbox">
+      <div class="collapse-title text-lg font-medium">
+        Tax Breakdown
+      </div>
+      <div class="collapse-content">
+        <p><strong>Total Income:</strong> ${{ total_income|intcomma }}</p>
+        <p><strong>Deductions:</strong> -${{ deductions|intcomma }}</p>
+        <p><strong>Non-taxable SE Deduction:</strong> -${{ self_employment_non_taxable_income|intcomma }}</p>
+        <p><strong>Taxable Income:</strong> ${{ taxable_income|intcomma }}</p>
+        <hr class="my-3">
+        <p><strong>Self-Employment Tax:</strong> ${{ self_employment_tax|intcomma }}</p>
+        <p><strong>Regular Income Tax:</strong> ${{ regular_tax|intcomma }}</p>
+        <ul class="list-disc pl-5">
+          {% for bracket in tax_breakdown %}
+            <li>
+              ${{ bracket.amount|intcomma }} taxed at {{ bracket.rate }}% = ${{ bracket.tax|intcomma }}
+            </li>
+          {% endfor %}
+        </ul>
+        <hr class="my-3">
+        <p><strong>Total Tax:</strong> ${{ tax|intcomma }}</p>
+      </div>
+    </div>
+  {% else %}
     <div class="alert alert-warning shadow-lg">
-        <div>
-            <span>Unable to calculate tax. Please check your inputs.</span>
-        </div>
+      <div>
+        <span>Unable to calculate tax. Please check your inputs.</span>
+      </div>
     </div>
-    {% endif %}
+  {% endif %}
 </div>
