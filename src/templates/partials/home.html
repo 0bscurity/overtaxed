@@ -1,4 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Audit Deez Nutz{% endblock %}
+{% block title %}OverTaxed | Home{% endblock %}
 {% block content %}
+
+  <div class="container mx-auto p-6">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold text-gray-300 mb-4">Welcome to OverTaxed</h1>
+      <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">
+        See just how deep into your pockets the government will reach with our federal and state tax calculators. Use
+        them—or don't. The math isn't going anywhere, but your money might be.
+      </p>
+    </div>
+
+    <div class="flex justify-center gap-4">
+      <a href="{% url 'federal_calculator' %}" class="btn btn-primary btn-wide">
+        Federal Tax Calculator
+      </a>
+
+      <div class="tooltip" data-tip="Coming soon!">
+        <a href="{% url 'state_calculator' %}" class="btn btn-secondary btn-wide btn-disabled">
+          State Tax Calculator
+        </a>
+      </div>
+    </div>
+
+{#    <p class="text-sm text-gray-500">#}
+{#      This website is not affiliated with or endorsed by any government agency. Calculations are for#}
+{#      informational purposes only and should not be considered official tax advice.#}
+{#    </p>#}
+  </div>
+
 {% endblock %}

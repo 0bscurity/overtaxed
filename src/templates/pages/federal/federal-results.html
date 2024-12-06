@@ -7,9 +7,9 @@
     }
 </style>
 
-<div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 bg-base-200 p-4 rounded-lg">
+<div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 rounded-lg">
   {% if tax is not None %}
-    <div class="alert alert-warning shadow-lg" style="background-color: #6a75eb">
+    <div class="alert alert-warning shadow-lg" style="background-color: #fd855a">
   <span>
     For the {{ year }} tax year, we estimate you will owe
     <strong>
@@ -18,7 +18,7 @@
   </span>
     </div>
 
-    <div tabindex="0" class="collapse collapse-open border border-base-300 bg-base-200 rounded-box mt-4">
+    <div tabindex="0" class="collapse collapse-open border border-base-300 bg-base-100 rounded-box mt-4">
       <input type="checkbox">
       <div class="collapse-title text-lg font-medium">
         Federal Tax Breakdown
@@ -40,7 +40,7 @@
                 </svg>
               </div>
             </div>
-            <strong>-${{ self_employment_non_taxable_income|intcomma }}</strong></div>
+            <strong>-${{ self_employment_non_taxable_income|floatformat:"0"|intcomma }}</strong></div>
         {% endif %}
         <hr class="my-2">
         <p class="flex justify-between mb-4">Taxable Income<strong>${{ taxable_income|intcomma }}</strong></p>
