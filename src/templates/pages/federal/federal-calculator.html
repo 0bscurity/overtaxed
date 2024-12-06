@@ -1,125 +1,127 @@
 {% extends "base.html" %}
 
 {% block title %}Federal Tax Calculator{% endblock %}
-
 {% block content %}
-  <div class="card bg-base-100 shadow-xl p-6 max-w-md mx-auto">
-    <h2 class="text-xl font-bold mb-4">Federal Tax Calculator</h2>
-    <form
-        method="post"
-        hx-post="{% url 'federal_tax_calculate' %}"
-        hx-target="#tax-result"
-        hx-swap="outerHTML"
-        class="space-y-4">
-      {% csrf_token %}
-      <!-- Annual Income -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text">Annual Income ($)</span>
-        </label>
-        <input
-            type="number"
-            name="income"
-            class="input input-bordered w-full"
-            placeholder="Enter your income"
-            required
+  <div class="card bg-base-100 shadow-xl p-6 mx-2 md:mx-auto max-w-5xl">
+    <h2 class="text-xl font-bold">Federal Tax Calculator</h2>
+
+    <div class="flex flex-col lg:flex-row lg:space-x-8">
+      <!-- Form Section -->
+      <div class="lg:w-1/2">
+        <form
+            method="post"
             hx-post="{% url 'federal_tax_calculate' %}"
-            hx-trigger="input"
             hx-target="#tax-result"
-            hx-swap="outerHTML">
+            hx-swap="outerHTML"
+            class="space-y-4">
+          {% csrf_token %}
+          <!-- Annual Income -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Annual Income ($)</span>
+            </label>
+            <input
+                type="number"
+                name="income"
+                class="input input-bordered w-full"
+                placeholder="Enter your income"
+                required
+                hx-post="{% url 'federal_tax_calculate' %}"
+                hx-trigger="input"
+                hx-target="#tax-result"
+                hx-swap="outerHTML">
+          </div>
+
+          <!-- Self-employed Checkbox -->
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">I have self-employment income</span>
+              <input
+                  type="checkbox"
+                  name="self_employed"
+                  class="checkbox checkbox-primary"
+                  hx-post="{% url 'federal_tax_calculate' %}"
+                  hx-trigger="change"
+                  hx-target="#tax-result"
+                  hx-swap="outerHTML"
+                  onclick="document.getElementById('self-employment-income').classList.toggle('hidden');">
+            </label>
+          </div>
+
+          <!-- Self-employment Income Field -->
+          <div class="form-control hidden" id="self-employment-income">
+            <label class="label">
+              <span class="label-text">Self-employment Income ($)</span>
+            </label>
+            <input
+                type="number"
+                name="self_employment_income"
+                class="input input-bordered w-full"
+                placeholder="Enter self-employment income"
+                value="0"
+                hx-post="{% url 'federal_tax_calculate' %}"
+                hx-trigger="input"
+                hx-target="#tax-result"
+                hx-swap="outerHTML">
+          </div>
+
+          <!-- Standard Deduction Checkbox -->
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">Use Standard Deduction</span>
+              <input
+                  type="checkbox"
+                  checked="checked"
+                  name="use_standard_deduction"
+                  class="checkbox checkbox-primary"
+                  hx-post="{% url 'federal_tax_calculate' %}"
+                  hx-trigger="change"
+                  hx-target="#tax-result"
+                  hx-swap="outerHTML">
+            </label>
+          </div>
+
+          <!-- Filing Status -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">Filing Status</span>
+            </label>
+            <select
+                name="status"
+                class="select select-bordered w-full"
+                hx-post="{% url 'federal_tax_calculate' %}"
+                hx-trigger="change"
+                hx-target="#tax-result"
+                hx-swap="outerHTML">
+              <option value="single">Single</option>
+              <option value="married">Married Filing Jointly</option>
+              <option value="head_of_household">Head of Household</option>
+            </select>
+          </div>
+
+          <!-- Deductions Field -->
+          <div class="form-control" id="deductions-input">
+            <label class="label">
+              <span class="label-text">Deductions ($)</span>
+            </label>
+            <input
+                type="number"
+                name="deductions"
+                class="input input-bordered w-full"
+                placeholder="Enter deductions"
+                value="0"
+                hx-post="{% url 'federal_tax_calculate' %}"
+                hx-trigger="input"
+                hx-target="#tax-result"
+                hx-swap="outerHTML">
+          </div>
+        </form>
       </div>
 
-      <!-- Self-employed Checkbox -->
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">I have self-employment income</span>
-          <input
-              type="checkbox"
-              name="self_employed"
-              class="checkbox checkbox-primary"
-              hx-post="{% url 'federal_tax_calculate' %}"
-              hx-trigger="change"
-              hx-target="#tax-result"
-              hx-swap="outerHTML"
-              onclick="document.getElementById('self-employment-income').classList.toggle('hidden');">
-
-        </label>
+      <!-- Results Section -->
+      <div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 bg-base-200 p-4 rounded-lg">
+        <p class="text-center text-gray-500">Your tax calculation results will appear here.</p>
       </div>
-
-      <!-- Self-employment Income Field -->
-      <div class="form-control hidden" id="self-employment-income">
-        <label class="label">
-          <span class="label-text">Self-employment Income ($)</span>
-        </label>
-        <input
-            type="number"
-            name="self_employment_income"
-            class="input input-bordered w-full"
-            placeholder="Enter self-employment income"
-            value="0"
-            hx-post="{% url 'federal_tax_calculate' %}"
-            hx-trigger="input"
-            hx-target="#tax-result"
-            hx-swap="outerHTML">
-      </div>
-
-      <!-- Standard Deduction Checkbox -->
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Use Standard Deduction</span>
-          <input
-              type="checkbox"
-              checked="checked"
-              name="use_standard_deduction"
-              class="checkbox checkbox-primary"
-              hx-post="{% url 'federal_tax_calculate' %}"
-              hx-trigger="change"
-              hx-target="#tax-result"
-              hx-swap="outerHTML">
-        </label>
-      </div>
-
-      <!-- Filing Status -->
-      <div class="form-control">
-        <label class="label">
-          <span class="label-text">Filing Status</span>
-        </label>
-        <select
-            name="status"
-            class="select select-bordered w-full"
-            hx-post="{% url 'federal_tax_calculate' %}"
-            hx-trigger="change"
-            hx-target="#tax-result"
-            hx-swap="outerHTML">
-          <option value="single">Single</option>
-          <option value="married">Married Filing Jointly</option>
-          <option value="head_of_household">Head of Household</option>
-        </select>
-      </div>
-
-      <!-- Deductions Field -->
-      <div class="form-control" id="deductions-input">
-        <label class="label">
-          <span class="label-text">Deductions ($)</span>
-        </label>
-        <input
-            type="number"
-            name="deductions"
-            class="input input-bordered w-full"
-            placeholder="Enter deductions"
-            value="0"
-            hx-post="{% url 'federal_tax_calculate' %}"
-            hx-trigger="input"
-            hx-target="#tax-result"
-            hx-swap="outerHTML">
-      </div>
-
-    </form>
-
-    <!-- Tax Result -->
-    <div id="tax-result" class="mt-4">
     </div>
-
-
   </div>
 {% endblock %}

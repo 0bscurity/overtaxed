@@ -1,35 +1,62 @@
 {% load humanize %}
 
-<div id="tax-result" class="mt-4">
+<style>
+    .tax-amount {
+        display: block;
+        font-size: 18px;
+    }
+</style>
+
+<div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 bg-base-200 p-4 rounded-lg">
   {% if tax is not None %}
-    <div class="alert alert-info shadow-lg">
-      <div>
-        <span>Your estimated federal tax is: <strong>${{ tax|floatformat:"0"|intcomma }}</strong></span>
-      </div>
+    <div class="alert alert-warning shadow-lg" style="background-color: #6a75eb">
+  <span>
+    For the {{ year }} tax year, we estimate you will owe
+    <strong>
+      <span class="tax-amount">${{ tax|floatformat:"2"|intcomma }}</span>
+    </strong>
+  </span>
     </div>
 
     <div tabindex="0" class="collapse collapse-open border border-base-300 bg-base-200 rounded-box mt-4">
       <input type="checkbox">
       <div class="collapse-title text-lg font-medium">
-        Tax Breakdown
+        Federal Tax Breakdown
       </div>
       <div class="collapse-content">
-        <p><strong>Total Income:</strong> ${{ total_income|intcomma }}</p>
-        <p><strong>Deductions:</strong> -${{ deductions|intcomma }}</p>
-        <p><strong>Non-taxable SE Deduction:</strong> -${{ self_employment_non_taxable_income|intcomma }}</p>
-        <p><strong>Taxable Income:</strong> ${{ taxable_income|intcomma }}</p>
-        <hr class="my-3">
-        <p><strong>Self-Employment Tax:</strong> ${{ self_employment_tax|intcomma }}</p>
-        <p><strong>Regular Income Tax:</strong> ${{ regular_tax|intcomma }}</p>
-        <ul class="list-disc pl-5">
-          {% for bracket in tax_breakdown %}
-            <li>
-              ${{ bracket.amount|intcomma }} taxed at {{ bracket.rate }}% = ${{ bracket.tax|intcomma }}
-            </li>
-          {% endfor %}
-        </ul>
-        <hr class="my-3">
-        <p><strong>Total Tax:</strong> ${{ tax|intcomma }}</p>
+        <p style="text-decoration: underline; font-weight: 500">Taxable Income</p>
+        <p class="flex justify-between">Gross Income <strong>${{ total_income|intcomma }}</strong></p>
+        <p class="ms-2 flex justify-between">Standard Deduction <strong>-${{ standard_deduction|intcomma }}</strong></p>
+        <p class="ms-2 flex justify-between">Other Deductions <strong>-${{ deductions|intcomma }}</strong></p>
+        {% if self_employment_non_taxable_income %}
+          <div class="ms-2 flex justify-between">
+            <div class="flex items-center">
+              <p>Non-taxable income</p>
+              <div class="tooltip ms-2" data-tip="Only 92.35% of self-employment income is taxable under IRS rules.">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                     stroke="currentColor" style="width: 1.2em;">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"></path>
+                </svg>
+              </div>
+            </div>
+            <strong>-${{ self_employment_non_taxable_income|intcomma }}</strong></div>
+        {% endif %}
+        <hr class="my-2">
+        <p class="flex justify-between mb-4">Taxable Income<strong>${{ taxable_income|intcomma }}</strong></p>
+
+        <p style="text-decoration: underline; font-weight: 500">Estimated federal taxes</p>
+        <p class="flex justify-between">Taxes before adjustments<strong>${{ federal_tax|intcomma }}</strong></p>
+        {% if self_employment_tax %}
+          <p class="flex justify-between">Self-Employment Tax<strong>${{ self_employment_tax|intcomma }}</strong></p>
+        {% endif %}
+        <hr class="my-2">
+        <p class="flex justify-between mb-4">Taxes Owed<strong>${{ tax|intcomma }}</strong></p>
+
+        <p style="text-decoration: underline; font-weight: 500">Tax rate</p>
+        <p class="flex justify-between">Effective tax rate<strong>{{ effective_tax_rate }}%</strong></p>
+        <p class="flex justify-between">Marginal tax rate<strong>{{ marginal_tax_rate }}%</strong></p>
+
       </div>
     </div>
   {% else %}
