@@ -6,7 +6,6 @@
     <h2 class="text-xl font-bold">Federal Tax Calculator</h2>
 
     <div class="flex flex-col lg:flex-row lg:space-x-8">
-      <!-- Form Section -->
       <div class="lg:w-1/2">
         <form
             method="post"
@@ -15,6 +14,7 @@
             hx-swap="outerHTML"
             class="space-y-4">
           {% csrf_token %}
+          
           <!-- Annual Income -->
           <div class="form-control">
             <label class="label">
@@ -58,7 +58,6 @@
                 name="self_employment_income"
                 class="input input-bordered w-full"
                 placeholder="Enter self-employment income"
-                value="0"
                 hx-post="{% url 'federal_tax_calculate' %}"
                 hx-trigger="input"
                 hx-target="#tax-result"
