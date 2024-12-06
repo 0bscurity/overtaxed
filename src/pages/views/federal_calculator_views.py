@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -29,8 +31,9 @@ class FederalTaxCalculateView(View):
         }
 
         # Apply standard deduction if selected
+        standard_deduction = deductions = 0
         if use_standard_deduction:
-            deductions = standard_deductions[status]
+            standard_deduction = standard_deductions[status]
         else:
             deductions = float(request.POST.get("deductions", 0) or 0)
 
@@ -38,16 +41,19 @@ class FederalTaxCalculateView(View):
         total_income = income + self_employment_income
 
         # Calculate the taxable portion of self-employment income (92.35%)
-        self_employment_taxable_income = self_employment_income * 0.9235
-        self_employment_non_taxable_income = self_employment_income - self_employment_taxable_income
+        self_employment_non_taxable_income = 0
+        self_employment_taxable_income = 0
+        self_employment_tax = 0
+        if self_employment_income > 0:
+            self_employment_taxable_income = self_employment_income * 0.9235
+            self_employment_non_taxable_income = self_employment_income - self_employment_taxable_income
 
-        # Calculate self-employment tax
-        self_employment_tax = self_employment_taxable_income * 0.153
+            # Calculate self-employment tax
+            self_employment_tax = self_employment_taxable_income * 0.153
 
-        # Adjust taxable income for regular tax brackets by deducting half of self-employment tax
         adjusted_income = income + self_employment_taxable_income
 
-        taxable_income = max(0, adjusted_income - deductions)
+        taxable_income = max(0, adjusted_income - standard_deduction - deductions)
 
         # Define tax brackets
         brackets = {
@@ -81,30 +87,42 @@ class FederalTaxCalculateView(View):
         }
 
         # Calculate regular income tax
-        regular_tax = 0
+        federal_tax = 0
         tax_breakdown = []
+        marginal_rate = 0
         for lower, upper, rate in brackets[status]:
             if taxable_income > lower:
                 income_in_bracket = min(taxable_income, upper) - lower
                 bracket_tax = income_in_bracket * rate
-                regular_tax += bracket_tax
+                federal_tax += bracket_tax
                 tax_breakdown.append({
                     "amount": int(income_in_bracket),
                     "rate": int(rate * 100),
                     "tax": int(bracket_tax),
                 })
+                # Update marginal rate if taxable income is within the current bracket
+                if taxable_income <= upper:
+                    marginal_rate = rate
 
         # Total tax is the sum of regular tax and self-employment tax
-        total_tax = round(regular_tax + self_employment_tax, 2)
+        total_tax = round(federal_tax + self_employment_tax, 2)
+
+        effective_tax_rate = 0
+        if total_income > 0:
+            effective_tax_rate = (total_tax / taxable_income) * 100
 
         context = {
+            "year": datetime.date.today().year,
             "tax": total_tax,
             "total_income": int(total_income),
-            "regular_tax": int(regular_tax),
+            "federal_tax": int(federal_tax),
             "self_employment_tax": int(self_employment_tax),
             "taxable_income": int(taxable_income),
             "deductions": int(deductions),
+            "standard_deduction": standard_deduction,
             "self_employment_non_taxable_income": int(self_employment_non_taxable_income),
+            "effective_tax_rate": round(effective_tax_rate, 2),
+            "marginal_tax_rate": int(marginal_rate * 100),
             "tax_breakdown": tax_breakdown,
         }
         html = render_to_string("pages/federal/federal-results.html", context)
