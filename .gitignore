@@ -1,3 +1,4 @@
 /.venv/
 /src/db.sqlite3
 /src/node_modules/
+/src/static/css/output.css
