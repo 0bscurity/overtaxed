@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="sunset">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,16 +11,8 @@
   <script src="https://unpkg.com/htmx.org"></script>
   <link rel="stylesheet" href="{% static '/css/output.css' %}">
 
-  <script>
-      tailwind.config = {
-          plugins: [daisyui],
-          daisyui: {
-              themes: ["light", "dark"], // Enable light and dark themes
-          },
-      };
-  </script>
 </head>
-<body class="bg-base-200 text-base-content vh-100">
+<body class="text-base-content h-screen">
 <!-- Navbar -->
 {% include "partials/nav.html" %}
 
