@@ -1,6 +1,7 @@
 from django.urls import path
 
-from pages.views.federal_calculator_views import HomePageView, FederalCalculatorView, StateCalculatorView, FederalTaxCalculateView
+from pages.views.federal_calculator_views import HomePageView, FederalCalculatorView, FederalTaxCalculateView
+from pages.views.state_calculator_views import StateCalculatorView
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
