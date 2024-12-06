@@ -1,22 +1,25 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    <!-- Tailwind CSS with DaisyUI CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/htmx.org"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- Tailwind CSS with DaisyUI CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css"/>
+{#  <script src="https://cdn.tailwindcss.com"></script>#}
+  <script src="https://unpkg.com/htmx.org"></script>
+  <link rel="stylesheet" href="{% static '/css/output.css' %}">
 
-    <script>
-        tailwind.config = {
-            plugins: [daisyui],
-            daisyui: {
-                themes: ["light", "dark"], // Enable light and dark themes
-            },
-        };
-    </script>
+  <script>
+      tailwind.config = {
+          plugins: [daisyui],
+          daisyui: {
+              themes: ["light", "dark"], // Enable light and dark themes
+          },
+      };
+  </script>
 </head>
 <body class="bg-base-200 text-base-content vh-100">
 <!-- Navbar -->
@@ -24,9 +27,9 @@
 
 <!-- Main Content -->
 <div class="container mx-auto py-6">
-    {% block content %}
+  {% block content %}
 
-    {% endblock %}
+  {% endblock %}
 </div>
 </body>
 </html>
