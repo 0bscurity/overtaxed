@@ -1,11 +1,4 @@
 services:
-  postgres:
-    image: postgres:17
-    env_file: .env
-    volumes:
-      - postgres-data:/var/lib/postgresql/data/
-    restart: unless-stopped
-
   django:
     build:
       context: .
@@ -17,8 +10,6 @@ services:
     volumes:
       - ./src/staticfiles:/code/staticfiles
       - ./src/media:/code/media
-    depends_on:
-      - postgres
     restart: unless-stopped
     command: >
       sh -c "python manage.py migrate &&
@@ -36,6 +27,3 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
-
-volumes:
-  postgres-data:
