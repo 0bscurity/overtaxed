@@ -14,12 +14,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src/package.json src/package-lock.json ./
 RUN npm install
-RUN npm i -D daisyui@latest
+RUN npm i -D daisyui@latest htmx.org@2.0.3
 
 # Copy project files
 COPY src .
 
 RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify
+
+RUN cp node_modules/htmx.org/dist/htmx.min.js ./static/js/htmx.min.js
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
