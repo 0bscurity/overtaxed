@@ -19,6 +19,8 @@ RUN npm i -D daisyui@latest
 # Copy project files
 COPY src .
 
+RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify
+
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
