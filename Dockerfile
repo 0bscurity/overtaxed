@@ -16,14 +16,8 @@ COPY src/package.json src/package-lock.json ./
 RUN npm install
 RUN npm i -D daisyui@latest
 
-# Copy the static directory (from src/static)
-COPY src/static ./static
-
 # Copy project files
 COPY src .
-
-# Build Tailwind CSS
-RUN npx tailwindcss -i ./static/input.css -o ./static/output.css --minify
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
