@@ -16,6 +16,9 @@ COPY src/package.json src/package-lock.json ./
 RUN npm install
 RUN npm i -D daisyui@latest
 
+# Copy the static directory (from src/static)
+COPY src/static ./static
+
 # Copy project files
 COPY src .
 
