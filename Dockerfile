@@ -11,7 +11,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY package.json package-lock.json ./
+COPY src/package.json src/package-lock.json ./
 RUN npm install
 RUN npm i -D daisyui@latest
 
