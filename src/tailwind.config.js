@@ -1,4 +1,5 @@
 module.exports = {
+    mode: "jit",
     content: [
         './templates/**/*.html', // Django templates
     ],
