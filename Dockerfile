@@ -4,18 +4,14 @@ FROM python:3.11
 WORKDIR /code
 
 # Install dependencies
-COPY requirements.txt .
+COPY src/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
-COPY . .
-
-RUN python manage.py migrate
+COPY src .
 
 # Set environment variables
-ENV PYTHONUNBUFFERED 1
-
-RUN python manage.py collectstatic --noinput
+ENV PYTHONUNBUFFERE=1
 
 # Run Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "core.wsgi:application"]
