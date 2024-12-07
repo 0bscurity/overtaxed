@@ -1,0 +1,12 @@
+{
+    email hawk.andrew.work@gmail.com
+}
+
+https://overtaxedonline.com {
+    reverse_proxy django:8000
+
+     handle_path /static/* {
+        root * /srv/static
+        file_server
+    }
+}
