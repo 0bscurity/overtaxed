@@ -1,10 +1,10 @@
 {
   "devDependencies": {
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.16",
+    "daisyui": "^4.12.14"
   },
   "scripts": {
-    "build": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify",
-    "dev": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch"
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify"
   },
   "dependencies": {
     "daisyui": "^4.12.14"
