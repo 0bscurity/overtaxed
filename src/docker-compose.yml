@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17
+    env_file: .env
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+    restart: unless-stopped
+
+  django:
+    build: .
+    container_name: django
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - ./src/staticfiles:/code/staticfiles
+      - ./src/media:/code/media
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    volumes:
+      - ./src/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./src/staticfiles:/srv/static
+      - ./src/media:/srv/media
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
