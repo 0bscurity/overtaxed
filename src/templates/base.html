@@ -8,7 +8,8 @@
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="{% static '/css/output.css' %}">
 </head>
-<body class="text-base-content h-screen">
+<body class="text-base-content h-screen" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
 <!-- Navbar -->
 {% include "partials/nav.html" %}
 
@@ -20,11 +21,6 @@
 </div>
 
 <script src="{% static 'js/htmx.min.js' %}"></script>
-<script>
-    document.body.addEventListener('htmx:configRequest', (event) => {
-        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-    });
-</script>
 
 </body>
 </html>
