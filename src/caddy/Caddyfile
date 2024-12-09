@@ -10,3 +10,12 @@ https://overtaxedonline.com {
         file_server
     }
 }
+
+https://test.overtaxedonline.com {
+    reverse_proxy django-test:8000
+
+    handle_path /static/* {
+        root * /srv/static-test
+        file_server
+    }
+}

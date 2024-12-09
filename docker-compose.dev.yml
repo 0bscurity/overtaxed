@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  django-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django-dev
+    ports:
+      - "8001:8000"
+    env_file: .env.test
+    volumes:
+      - ./src:/code
+      - ./src/staticfiles:/code/staticfiles
+      - ./src/media:/code/media
+    restart: unless-stopped
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy-dev
+    volumes:
+      - ./src/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./src/staticfiles:/srv/static
+      - ./src/media:/srv/media
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
