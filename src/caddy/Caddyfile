@@ -11,7 +11,7 @@ https://overtaxedonline.com {
   }
 }
 
-https://test.overtaxedonline.com {
+http://test.overtaxedonline.com {
   reverse_proxy django-dev:8000
 
   handle_path /static/* {
