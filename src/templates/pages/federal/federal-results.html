@@ -58,6 +58,17 @@
         <p class="flex justify-between">Effective tax rate<strong>{{ effective_tax_rate }}%</strong></p>
         <p class="flex justify-between">Marginal tax rate<strong>{{ marginal_tax_rate }}%</strong></p>
 
+        <p class="mt-4" style="text-decoration: underline; font-weight: 500">Bracket breakdown</p>
+        <ul class="list-disc pl-5 space-y-2">
+          {% for bracket in bracket_breakdown %}
+            <li class="flex justify-between">
+              <span>${{ bracket.upper|intcomma }} taxed at {{ bracket.rate|floatformat:"0" }}%</span>
+              <strong>${{ bracket.tax_in_bracket|intcomma }}</strong>
+            </li>
+            {% empty %}
+            <li class="text-gray-500">No taxable income.</li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   {% else %}
