@@ -6,7 +6,7 @@ WORKDIR /build
 
 # Copy package.json and package-lock.json first to cache dependencies
 COPY src/package.json src/package-lock.json ./
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps daisyui@latest htmx.org@2.0.3
 
 # Install TailwindCSS and build CSS
 COPY src/static ./static
