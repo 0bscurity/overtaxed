@@ -9,7 +9,10 @@ COPY src/package.json src/package-lock.json ./
 RUN npm install --legacy-peer-deps daisyui@latest htmx.org@2.0.3
 
 # Install TailwindCSS and build CSS
+RUN npm install -g tailwindcss
 COPY src/static ./static
+COPY src/tailwind.config.js ./tailwind.config.js
+
 RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minify
 
 # Copy HTMX
