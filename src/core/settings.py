@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ['overtaxedonline.com', '68.183.109.108', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['overtaxedonline.com', '68.183.109.108', 'localhost', '127.0.0.1', 'test.overtaxedonline.com']
 
 CSRF_TRUSTED_ORIGINS = [os.getenv("HOSTING_DOMAIN")]
 
