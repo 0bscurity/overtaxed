@@ -10,18 +10,19 @@
 <div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 rounded-lg">
   {% if tax is not None %}
     <div class="alert alert-warning shadow-lg" style="background-color: #fd855a">
-  <span>
-    For the {{ year }} tax year, we estimate you will owe
-    <strong>
-      <span class="tax-amount">${{ tax|floatformat:"2"|intcomma }}</span>
-    </strong>
-  </span>
+      <span style="text-align: start !important;">
+        For the {{ year }} tax year, we estimate you will owe
+        <strong>
+          <span class="tax-amount">${{ tax|floatformat:"2"|intcomma }}</span>
+        </strong>
+      </span>
     </div>
 
-    <div tabindex="0" class="collapse collapse-open border border-base-300 bg-base-100 rounded-box mt-4">
+    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4"
+         style="overflow: visible !important">
       <input type="checkbox">
       <div class="collapse-title text-lg font-medium">
-        Federal Tax Breakdown
+        Tax Breakdown
       </div>
       <div class="collapse-content">
         <p style="text-decoration: underline; font-weight: 500">Taxable Income</p>
