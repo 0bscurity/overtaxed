@@ -1,21 +1,21 @@
 {
-    email hawk.andrew.work@gmail.com
+  email hawk.andrew.work@gmail.com
 }
 
 https://overtaxedonline.com {
-    reverse_proxy django:8000
+  reverse_proxy django:8000
 
-     handle_path /static/* {
-        root * /srv/static
-        file_server
-    }
+  handle_path /static/* {
+    root * /srv/static
+    file_server
+  }
 }
 
 https://test.overtaxedonline.com {
-    reverse_proxy django-test:8000
+  reverse_proxy django-dev:8000
 
-    handle_path /static/* {
-        root * /srv/static-test
-        file_server
-    }
+  handle_path /static/* {
+    root * /srv/static
+    file_server
+  }
 }
