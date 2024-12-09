@@ -16,8 +16,6 @@ RUN npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --minif
 RUN mkdir -p ./static/js
 RUN cp node_modules/htmx.org/dist/htmx.min.js ./static/js/htmx.min.js
 
----
-
 # Stage 2: Build Python dependencies and copy final assets
 FROM python:3.11
 
