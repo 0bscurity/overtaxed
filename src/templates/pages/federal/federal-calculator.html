@@ -14,7 +14,7 @@
             hx-swap="outerHTML"
             class="space-y-4">
           {% csrf_token %}
-          
+
           <!-- Annual Income -->
           <div class="form-control">
             <label class="label">
@@ -31,7 +31,10 @@
                 hx-target="#tax-result"
                 hx-swap="outerHTML">
           </div>
-
+          <p class="text-gray-500" style="font-size: small">
+            Exclude any self-employment income. You can enter that separately below.
+          </p>
+          
           <!-- Self-employed Checkbox -->
           <div class="form-control">
             <label class="label cursor-pointer">
