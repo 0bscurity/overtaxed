@@ -34,7 +34,7 @@
           <p class="text-gray-500" style="font-size: small">
             Exclude any self-employment income. You can enter that separately below.
           </p>
-          
+
           <!-- Self-employed Checkbox -->
           <div class="form-control">
             <label class="label cursor-pointer">
@@ -126,4 +126,21 @@
       </div>
     </div>
   </div>
+
+  <script>
+      function toggleSelfEmploymentField(checkbox) {
+          const field = document.getElementById('self-employment-income');
+          const input = document.getElementById('self-employment-input');
+
+          // Toggle visibility
+          field.classList.toggle('hidden', !checkbox.checked);
+
+          // Clear input value when checkbox is unchecked
+          if (!checkbox.checked) {
+              input.value = '';
+              input.dispatchEvent(new Event('input')); // Trigger HTMX post on clear
+          }
+      }
+  </script>
+  
 {% endblock %}

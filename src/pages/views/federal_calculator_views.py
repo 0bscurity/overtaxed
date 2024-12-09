@@ -17,9 +17,11 @@ class FederalCalculatorView(TemplateView):
 
 class FederalTaxCalculateView(View):
     def post(self, request, *args, **kwargs):
-        # Get input
         income = float(request.POST.get("income", 0) or 0)
-        self_employment_income = float(request.POST.get("self_employment_income", 0) or 0)
+        self_employed = request.POST.get("self_employed") == "on"
+        self_employment_income = 0
+        if self_employed:
+            self_employment_income = float(request.POST.get("self_employment_income", 0) or 0)
         status = request.POST.get("status", "single")
         use_standard_deduction = request.POST.get("use_standard_deduction") == "on"
         deductions = float(request.POST.get("deductions", 0) or 0)
