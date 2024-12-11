@@ -1,0 +1,114 @@
+{% load humanize %}
+
+<style>
+    .tax-amount {
+        display: block;
+        font-size: 18px;
+    }
+</style>
+
+<div id="state-tax-result" class="lg:w-1/2 mt-4 lg:mt-0 rounded-lg">
+  {% if tax is not None %}
+    <div class="alert alert-warning shadow-lg" style="background-color: #00cbb7">
+      <span style="text-align: start !important;">
+        For the {{ year }} tax year, we estimate you will owe
+        <strong>
+          <span class="tax-amount">${{ tax|floatformat:"2"|intcomma }}</span>
+        </strong>
+      </span>
+    </div>
+
+    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4 collapse-open">
+      <input type="checkbox">
+      <div class="collapse-title text-lg font-medium">
+        Tax Breakdown
+      </div>
+      <div class="collapse-content">
+        <p style="font-weight: 600; font-size: 17px">Taxable Income</p>
+        <p class="flex justify-between">Gross Income <strong>${{ total_income|intcomma }}</strong></p>
+        <p class="ms-2 flex justify-between">Standard Deduction <strong>-${{ standard_deduction|intcomma }}</strong></p>
+        {% if deductions %}
+          <p class="ms-2 flex justify-between">Other Deductions <strong>-${{ deductions|intcomma }}</strong></p>
+        {% endif %}
+        <hr class="my-2">
+        <p class="flex justify-between mb-4">Taxable Income<strong>${{ taxable_income|intcomma }}</strong></p>
+
+        <p style="font-weight: 600; font-size: 17px">Estimated state taxes</p>
+        <p class="flex justify-between">State Tax<strong>${{ state_tax|floatformat:"0"|intcomma }}</strong></p>
+        <p class="flex justify-between">County Tax<strong>${{ county_tax|floatformat:"0"|intcomma }}</strong></p>
+
+        <hr class="my-2">
+
+        <p class="flex justify-between mb-4">Taxes Owed<strong>${{ tax|floatformat:"0"|intcomma }}</strong></p>
+
+        <p style="font-weight: 600; font-size: 17px">Tax rate</p>
+        <p class="flex justify-between">Effective tax rate<strong>{{ effective_tax_rate }}%</strong></p>
+        <p class="flex justify-between mb-4">Marginal tax rate<strong>{{ marginal_tax_rate }}%</strong></p>
+
+        <p class="mb-3" style="font-weight: 600; font-size: 17px">State breakdown</p>
+        <table class="table-auto mb-3">
+          <thead>
+          <tr>
+            <th>Bracket Lower</th>
+            <th>Bracket Upper</th>
+            <th>Rate</th>
+            <th>Income in Bracket</th>
+            <th>Tax in Bracket</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for bracket in state_bracket_breakdown %}
+            <tr>
+              <td>${{ bracket.lower|intcomma }}</td>
+              <td>{{ bracket.upper|intcomma }}</td>
+              <td>{{ bracket.rate }}%</td>
+              <td>${{ bracket.income_in_bracket|intcomma }}</td>
+              <td>${{ bracket.tax_in_bracket|intcomma }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <p class="mb-3" style="font-weight: 600; font-size: 17px">County breakdown</p>
+        <table>
+          <thead>
+          <tr>
+            <th>Bracket Lower</th>
+            <th>Bracket Upper</th>
+            <th>Rate (%)</th>
+            <th>Income in Bracket</th>
+            <th>Tax in Bracket</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for bracket in county_bracket_breakdown %}
+            <tr>
+              <td>${{ bracket.lower|intcomma }}</td>
+              <td>{{ bracket.upper|intcomma }}</td>
+              <td>{{ bracket.rate }}%</td>
+              <td>${{ bracket.income_in_bracket|intcomma }}</td>
+              <td>${{ bracket.tax_in_bracket|intcomma }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning shadow-lg">
+      <div>
+        <span>Unable to calculate tax. Please check your inputs.</span>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<style>
+    th, td {
+        font-size: .75rem !important;
+        text-align: start !important;
+        padding: 5px !important;
+        border: .05em solid #000000 !important;
+    }
+</style>

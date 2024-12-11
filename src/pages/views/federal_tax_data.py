@@ -1,4 +1,4 @@
-TAX_DATA = {
+FEDERAL_TAX_DATA = {
     2024: {
         "standard_deductions": {
             "single": 14600,
