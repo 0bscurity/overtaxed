@@ -118,6 +118,11 @@
                 hx-swap="outerHTML">
           </div>
         </form>
+        
+        <p class="text-sm text-gray-500 mt-4">
+          This website is not affiliated with or endorsed by any government agency. Calculations are for
+          informational purposes only and should not be considered official tax advice.
+        </p>
       </div>
 
       <!-- Results Section -->
@@ -130,9 +135,7 @@
   <script>
       function toggleSelfEmploymentInput(checkbox) {
           const selfEmploymentField = document.getElementById('self-employment-income');
-          const inputField = selfEmploymentField.querySelector('input');
 
-          // Toggle visibility
           selfEmploymentField.classList.toggle('hidden', !checkbox.checked);
       }
   </script>
