@@ -1,0 +1,117 @@
+<div class="card bg-base-100 shadow-xl p-2 mx-2 mt-3 mb-3 w-full md:mx-4">
+  <div class="flex items-center mb-3">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+         class="me-2 size-6">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z"></path>
+    </svg>
+    <h2 class="text-xl font-bold">Federal Tax Calculator</h2>
+  </div>
+
+  <div class="flex flex-col lg:flex-row lg:space-x-8">
+    <div class="lg:w-1/2">
+      <form class="space-y-4">
+        <!-- Hardcoded Annual Income -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Annual Income ($)</span>
+          </label>
+          <input
+              type="number"
+              class="input input-bordered w-full"
+              placeholder="Enter your income"
+              value="75000"
+              disabled>
+        </div>
+        <p class="text-gray-500" style="font-size: small">
+          Exclude any self-employment income. You can enter that separately below.
+        </p>
+
+        <!-- Hardcoded Self-employed Checkbox -->
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">I have self-employment income</span>
+            <input
+                type="checkbox"
+                class="checkbox checkbox-primary"
+                disabled>
+          </label>
+        </div>
+
+        <!-- Hardcoded Standard Deduction Checkbox -->
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">Use Standard Deduction</span>
+            <input
+                type="checkbox"
+                class="checkbox checkbox-primary"
+                checked
+                disabled>
+          </label>
+        </div>
+
+        <!-- Hardcoded Filing Status -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Filing Status</span>
+          </label>
+          <select
+              class="select select-bordered w-full"
+              disabled>
+            <option value="single" selected>Single</option>
+            <option value="married">Married Filing Jointly</option>
+            <option value="head_of_household">Head of Household</option>
+          </select>
+        </div>
+
+        <!-- Hardcoded Deductions -->
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Deductions ($)</span>
+          </label>
+          <input
+              type="number"
+              class="input input-bordered w-full"
+              placeholder="Enter deductions"
+              value="8000"
+              disabled>
+        </div>
+      </form>
+    </div>
+
+    <!-- Hardcoded Results Section -->
+    <div id="tax-result" class="lg:w-1/2 mt-4 lg:mt-0 rounded-lg">
+      <div class="alert alert-warning shadow-lg" style="background-color: #fd855a">
+        <span style="text-align: start !important;">
+          For the 2023 tax year, we estimate you will owe
+          <strong>
+            <span class="tax-amount">$12,450.00</span>
+          </strong>
+        </span>
+      </div>
+
+      <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4 collapse-open"
+           style="overflow: visible !important">
+        <input type="checkbox">
+        <div class="collapse-title text-lg font-medium">
+          Tax Breakdown
+        </div>
+        <div class="collapse-content">
+          <p style="text-decoration: underline; font-weight: 500">Taxable Income</p>
+          <p class="flex justify-between">Gross Income <strong>$95,000</strong></p>
+          <p class="ms-2 flex justify-between">Standard Deduction <strong>-$12,000</strong></p>
+          <p class="ms-2 flex justify-between">Other Deductions <strong>-$8,000</strong></p>
+          <p class="ms-2 flex justify-between">Non-taxable income <strong>-$1,530</strong></p>
+          <hr class="my-2">
+          <p class="flex justify-between mb-4">Taxable Income <strong>$73,470</strong></p>
+
+          <p style="text-decoration: underline; font-weight: 500">Estimated federal taxes</p>
+          <p class="flex justify-between">Taxes before adjustments <strong>$10,300</strong></p>
+          <p class="flex justify-between">Self-employment Tax <strong>$2,150</strong></p>
+          <hr class="my-2">
+          <p class="flex justify-between">Taxes Owed <strong>$12,450</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

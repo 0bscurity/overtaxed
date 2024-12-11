@@ -13,7 +13,7 @@
 </nav>
 
 <!-- Navbar for small devices -->
-<div class="navbar bg-base-100 md:hidden">
+<div class="navbar md:hidden bg-base-200">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
@@ -32,14 +32,14 @@
       </div>
       <ul
           tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li><a href="/">Home</a></li>
         <li><a href="{% url 'federal_calculator' %}">Federal Tax Calculator</a></li>
         <li><a href="{% url 'state_calculator' %}">State Tax Calculator</a></li>
       </ul>
     </div>
   </div>
-  <div class="navbar-center">
+  <div class="navbar-end">
     <a class="btn btn-ghost text-xl">OverTaxed</a>
   </div>
 </div>
