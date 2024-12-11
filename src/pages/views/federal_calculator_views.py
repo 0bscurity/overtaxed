@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.views.generic import TemplateView, View
 
-from pages.views.tax_data import TAX_DATA
+from pages.views.federal_tax_data import FEDERAL_TAX_DATA
 
 
 class HomePageView(TemplateView):
@@ -28,7 +28,7 @@ class FederalTaxCalculateView(View):
         tax_year = int(request.POST.get("year", datetime.date.today().year))
 
         # Fallback to 2024 data if year not found
-        tax_data = TAX_DATA.get(tax_year, TAX_DATA[2024])
+        tax_data = FEDERAL_TAX_DATA.get(tax_year, FEDERAL_TAX_DATA[2024])
 
         standard_deductions = tax_data["standard_deductions"]
         tax_brackets = tax_data["tax_brackets"]
