@@ -1,17 +1,33 @@
 {% extends "base.html" %}
+
+{% load static %}
+
 {% block title %}OverTaxed | Home{% endblock %}
+
+{% block head_extra %}
+
+  <meta property="og:title" content="OverTaxed Home"/>
+  <meta property="og:description" content="Try my tax calculators for federal and state taxes!"/>
+  <meta property="og:image" content="{% static 'graphics/home_preview.png' %}"/>
+  <meta property="og:url" content="https://overtaxedonline.com"/>
+
+{% endblock %}
+
 {% block content %}
 
   <div class="container mx-auto px-4 py-6">
-    <!-- Flex container -->
     <div class="flex flex-col xl:flex-row gap-8 xl:items-start">
-      <!-- Left Column: Main Content -->
       <div class="flex-1 my-auto">
-        <h1 class="text-4xl font-bold text-gray-300 mb-4">Welcome to OverTaxed</h1>
-        <p class="text-lg text-gray-400 mb-8 max-w-xl">
+
+        <div class="flex flex-col sm:flex-row justify-start items-baseline mb-6">
+          <h1 class="text-4xl font-bold text-gray-300 me-4">
+            Welcome to
+          </h1>
+          <img src="{% static 'graphics/overtaxed.svg' %}" class="sm:mt-0 mt-4" style="height: 2.2em" alt="Overtaxed">
+        </div>
+        <p class="text-lg text-gray-400 mb-9 max-w-xl">
           See just how deep into your pockets the government will reach with our federal and state tax calculators.
-          Use
-          them—or don't. The math isn't going anywhere, but your money might be.
+          Use them—or don't. The math isn't going anywhere, but your money might be.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 lg:gap-4">
@@ -26,8 +42,7 @@
 
           <a href="{% url 'state_calculator' %}" class="btn btn-accent btn-wide">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                 stroke="currentColor"
-                 class="size-6">
+                 stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z"></path>
             </svg>
@@ -36,8 +51,11 @@
         </div>
       </div>
 
-      <!-- Right Column: Mockup Browser -->
-      <div class="xl:w-1/2 mt-12 xl:mt-0">
+      <div class="xl:w-1/2 mt-10 md:mt-[4rem] lg:mt-[5rem] xl:mt-0 relative">
+        <div class="absolute inset-0 z-[-1] flex items-center justify-center">
+          <div class="bg-primary/20 rounded-6 w-full h-full blur-3xl"></div>
+        </div>
+
         <div class="mockup-browser bg-base-300">
           <div class="mockup-browser-toolbar">
             <div class="input">https://overtaxedonline.com</div>

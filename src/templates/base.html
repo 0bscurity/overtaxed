@@ -8,6 +8,7 @@
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="{% static '/css/output.css' %}">
   <link rel="icon" href="{% static 'graphics/OT_color.svg' %}" sizes="any" type="image/svg+xml">
+  {% block head_extras %}{% endblock %}
 </head>
 <body class="text-base-content h-screen" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 

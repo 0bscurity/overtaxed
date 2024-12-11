@@ -1,7 +1,13 @@
+{% load static %}
+
 <!-- Navbar for medium and larger devices -->
 <nav class="navbar bg-base-200 shadow-md px-4 hidden md:flex">
   <div class="flex-1">
-    <a href="/" class="text-xl font-bold">OverTaxed</a>
+    <a href="/" class="text-xl font-bold">
+      <img src="{% static 'graphics/overtaxed_color.svg' %}" style="height: 1.5em">
+
+      {#      OverTaxed#}
+    </a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
@@ -40,6 +46,9 @@
     </div>
   </div>
   <div class="navbar-end">
-    <a class="btn btn-ghost text-xl">OverTaxed</a>
+    <a class="btn btn-ghost text-xl">
+      <img src="{% static 'graphics/OT.svg' %}">
+      {#      OverTaxed#}
+    </a>
   </div>
 </div>
