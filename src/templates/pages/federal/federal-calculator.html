@@ -36,7 +36,6 @@
           </p>
 
           <!-- Self-employed Checkbox -->
-          <!-- Self-employed Checkbox -->
           <div class="form-control">
             <label class="label cursor-pointer">
               <span class="label-text">I have self-employment income</span>
@@ -48,7 +47,7 @@
                   hx-trigger="change"
                   hx-target="#tax-result"
                   hx-swap="outerHTML"
-                  onclick="toggleSelfEmploymentInput(this);">
+                  onclick="toggleSelfEmploymentInput(this)">
             </label>
           </div>
 
@@ -135,12 +134,6 @@
 
           // Toggle visibility
           selfEmploymentField.classList.toggle('hidden', !checkbox.checked);
-
-          // Clear the input value when checkbox is unchecked
-          if (!checkbox.checked) {
-              inputField.value = "";
-              inputField.dispatchEvent(new Event('input')); // Trigger HTMX post
-          }
       }
   </script>
 
