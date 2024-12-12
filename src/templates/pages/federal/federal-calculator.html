@@ -19,7 +19,7 @@
             hx-post="{% url 'federal_tax_calculate' %}"
             hx-target="#tax-result"
             hx-swap="outerHTML"
-            class="space-y-4">
+            class="space-y-3">
           {% csrf_token %}
 
           <!-- Annual Income -->
@@ -124,6 +124,54 @@
                 hx-target="#tax-result"
                 hx-swap="outerHTML">
           </div>
+
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">I have dependents</span>
+              <input
+                  type="checkbox"
+                  name="dependents"
+                  class="checkbox checkbox-primary"
+                  hx-post="{% url 'federal_tax_calculate' %}"
+                  hx-trigger="change"
+                  hx-target="#tax-result"
+                  hx-swap="outerHTML"
+                  onclick="toggleDependentsInput(this)">
+            </label>
+          </div>
+
+          <div class="columns-2 hidden" id="dependent-fields">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Dependents under 17</span>
+              </label>
+              <input
+                  type="number"
+                  name="dependents_under_17"
+                  class="input input-bordered w-full"
+                  placeholder="Under 17"
+                  hx-post="{% url 'federal_tax_calculate' %}"
+                  hx-trigger="input"
+                  hx-target="#tax-result"
+                  value="0"
+                  hx-swap="outerHTML">
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Dependents over 17</span>
+              </label>
+              <input
+                  type="number"
+                  name="dependents_over_17"
+                  class="input input-bordered w-full"
+                  placeholder="Over 17"
+                  hx-post="{% url 'federal_tax_calculate' %}"
+                  hx-trigger="input"
+                  hx-target="#tax-result"
+                  value="0"
+                  hx-swap="outerHTML">
+            </div>
+          </div>
         </form>
 
         <p class="text-sm text-gray-500 mt-4">
@@ -144,6 +192,12 @@
           const selfEmploymentField = document.getElementById('self-employment-income');
 
           selfEmploymentField.classList.toggle('hidden', !checkbox.checked);
+      }
+
+      function toggleDependentsInput(checkbox) {
+          const dependentsField = document.getElementById('dependent-fields');
+
+          dependentsField.classList.toggle('hidden', !checkbox.checked);
       }
   </script>
 
