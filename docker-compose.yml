@@ -23,7 +23,14 @@ services:
       - ./src/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./src/staticfiles:/srv/static
       - ./src/media:/srv/media
+      - caddy_data:/data
+      - caddy_config:/config
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"
     restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
