@@ -5,6 +5,10 @@ FEDERAL_TAX_DATA = {
             "married": 29200,
             "head_of_household": 21900,
         },
+        "dependents": {
+            "child_tax_credit": 2000,
+            "other_dependent_credit": 500,
+        },
         "tax_brackets": {
             "single": [
                 (0, 11600, 0.10),
@@ -36,3 +40,4 @@ FEDERAL_TAX_DATA = {
         },
     },
 }
+

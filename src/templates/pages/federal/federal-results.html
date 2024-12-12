@@ -18,17 +18,19 @@
       </span>
     </div>
 
-    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4"
+    <div class="collapse border border-base-300 bg-base-100 rounded-box mt-4 collapse-open"
          style="overflow: visible !important">
       <input type="checkbox">
       <div class="collapse-title text-lg font-medium">
         Tax Breakdown
       </div>
       <div class="collapse-content">
-        <p style="text-decoration: underline; font-weight: 500">Taxable Income</p>
+        <p style="font-weight: 600; font-size: 17px">Taxable Income</p>
         <p class="flex justify-between">Gross Income <strong>${{ total_income|intcomma }}</strong></p>
         <p class="ms-2 flex justify-between">Standard Deduction <strong>-${{ standard_deduction|intcomma }}</strong></p>
-        <p class="ms-2 flex justify-between">Other Deductions <strong>-${{ deductions|intcomma }}</strong></p>
+        {% if deductions %}
+          <p class="ms-2 flex justify-between">Other Deductions <strong>-${{ deductions|intcomma }}</strong></p>
+        {% endif %}
         {% if self_employment_non_taxable_income %}
           <div class="ms-2 flex justify-between">
             <div class="flex items-center">
@@ -46,29 +48,26 @@
         <hr class="my-2">
         <p class="flex justify-between mb-4">Taxable Income<strong>${{ taxable_income|intcomma }}</strong></p>
 
-        <p style="text-decoration: underline; font-weight: 500">Estimated federal taxes</p>
-        <p class="flex justify-between">Taxes before adjustments<strong>${{ federal_tax|intcomma }}</strong></p>
+        <p style="font-weight: 600; font-size: 17px">Adjustments</p>
+        <p class="flex justify-between ms-2">Federal Income Tax<strong>${{ federal_tax|intcomma }}</strong></p>
         {% if self_employment_tax %}
-          <p class="flex justify-between">Self-Employment Tax<strong>${{ self_employment_tax|intcomma }}</strong></p>
+          <p class="flex justify-between ms-2">Self-Employment Tax<strong>${{ self_employment_tax|intcomma }}</strong></p>
+        {% endif %}
+        {% if dependents_under_17 %}
+          <p class="ms-2 flex justify-between">Child Tax Credit ({{ dependents_under_17 }})
+            <strong>-${{ child_tax_credit|intcomma }}</strong></p>
+        {% endif %}
+        {% if dependents_over_17 %}
+          <p class="ms-2 flex justify-between">Other Dependents ({{ dependents_over_17 }})
+            <strong>-${{ other_dependent_credit|intcomma }}</strong></p>
         {% endif %}
         <hr class="my-2">
-        <p class="flex justify-between mb-4">Taxes Owed<strong>${{ tax|intcomma }}</strong></p>
+        <p class="flex justify-between mb-4">Owed After Adjustments<strong>${{ tax|floatformat:"2"|intcomma }}</strong></p>
 
-        <p style="text-decoration: underline; font-weight: 500">Tax rate</p>
+        <p style="font-weight: 600; font-size: 17px">Tax rate</p>
         <p class="flex justify-between">Effective tax rate<strong>{{ effective_tax_rate }}%</strong></p>
         <p class="flex justify-between">Marginal tax rate<strong>{{ marginal_tax_rate }}%</strong></p>
 
-        <p class="mt-4" style="text-decoration: underline; font-weight: 500">Bracket breakdown</p>
-        <ul class="list-disc pl-5 space-y-2">
-          {% for bracket in bracket_breakdown %}
-            <li class="flex justify-between">
-              <span>${{ bracket.upper|intcomma }} taxed at {{ bracket.rate|floatformat:"0" }}%</span>
-              <strong>${{ bracket.tax_in_bracket|intcomma }}</strong>
-            </li>
-            {% empty %}
-            <li class="text-gray-500">No taxable income.</li>
-          {% endfor %}
-        </ul>
       </div>
     </div>
   {% else %}
