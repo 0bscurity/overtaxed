@@ -20,7 +20,10 @@ A **Tax Calculator** built with Django to help users calculate and manage their 
 - **Extensible**: Easily customizable for specific tax rules or user requirements.
 
 ---
+## Screenshots
+![Alt text](src/static/graphics/home_preview.png)
 
+---
 ## Tech Stack
 
 - **Backend**: Django (Python)
