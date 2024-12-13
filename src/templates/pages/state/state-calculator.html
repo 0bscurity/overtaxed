@@ -18,6 +18,7 @@
             method="post"
             hx-post="{% url 'state_tax_calculate' %}"
             hx-target="#state-tax-result"
+            hx-trigger="change"
             hx-swap="outerHTML"
             class="space-y-4">
           {% csrf_token %}
@@ -30,11 +31,14 @@
               </label>
               <select
                   name="state"
+                  id="state-select"
                   class="select select-bordered w-full"
-                  hx-post="{% url 'state_tax_calculate' %}"
+                  hx-post="{% url 'fetch_counties' %}"
                   hx-trigger="change"
-                  hx-target="#state-tax-result"
-                  hx-swap="outerHTML">
+                  hx-target="#county-select"
+                  hx-swap="outerHTML"
+              >
+                <option value="" disabled selected>Select a state</option>
                 <option value="maryland">Maryland</option>
               </select>
             </div>
@@ -46,12 +50,9 @@
               </label>
               <select
                   name="county"
-                  class="select select-bordered w-full"
-                  hx-post="{% url 'state_tax_calculate' %}"
-                  hx-trigger="change"
-                  hx-target="#state-tax-result"
-                  hx-swap="outerHTML">
-                <option value="maryland">Harford</option>
+                  id="county-select"
+                  class="select select-bordered w-full">
+                <option value="" disabled selected>Select a county</option>
               </select>
             </div>
           </div>
