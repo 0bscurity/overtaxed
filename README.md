@@ -26,7 +26,7 @@ A **Tax Calculator** built with Django to help users calculate and manage their 
 - **Backend**: Django (Python)
 - **Frontend**: HTMX + Tailwind CSS + DaisyUI for dynamic, lightweight interactions.
 - **Database**: PostgreSQL.
-- **Deployment**: Hosted on a digital ocean droplet (URL below).
+- **Deployment**: Hosted on a digital ocean droplet with docker and [**caddy**](https://caddyserver.com/) (URL above).
 
 ---
 
