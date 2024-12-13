@@ -22,7 +22,7 @@ A **Tax Calculator** built with Django to help users calculate and manage their 
 ---
 ## Screenshots
 ![OverTaxed Home](src/static/graphics/home_preview.png)
-![Federal Calculator Preview](src/static/graphics/federal_preivew.png)
+![Federal Calculator Preview](src/static/graphics/federal_preview.png)
 ---
 ## Tech Stack
 
