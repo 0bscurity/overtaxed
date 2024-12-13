@@ -1,0 +1,9 @@
+<select
+    name="county"
+    id="county-select"
+    class="select select-bordered w-full">
+  <option value="" disabled selected>Select a county</option>
+  {% for county in counties %}
+      <option value="{{ county.value }}">{{ county.label }}</option>
+  {% endfor %}
+</select>

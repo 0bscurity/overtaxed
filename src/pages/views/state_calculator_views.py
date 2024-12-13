@@ -1,6 +1,6 @@
 import datetime
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import TemplateView
@@ -105,3 +105,25 @@ class StateTaxCalculateView(View):
                     break
 
         return total_tax, marginal_rate, bracket_breakdown
+
+
+class FetchCountiesView(View):
+    def post(self, request, *args, **kwargs):
+        state = request.POST.get("state")
+        tax_year = int(request.POST.get("year", datetime.date.today().year))
+
+        # Get tax data for the provided year or fallback to default (2024)
+        tax_data = STATE_TAX_DATA.get(tax_year, STATE_TAX_DATA[2024])
+        state_data = tax_data["states"].get(state, {})
+
+        # Get county names excluding 'default', and transform the names
+        counties = [
+            {"value": county, "label": county.replace("_", " ").title()}
+            for county in state_data.get("counties", {}).keys()
+            if county != "default"
+        ]
+
+        # Render the county dropdown options HTML using a template
+        html = render_to_string("pages/state/county-dropdown.html", {"counties": counties})
+
+        return HttpResponse(html)
