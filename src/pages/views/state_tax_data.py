@@ -67,11 +67,13 @@ STATE_TAX_DATA = {
                         ],
                     },
                     "harford": {
-                        "tax_brackets": [
-                            (0, 20000, 0.01),
-                            (20001, 50000, 0.015),
-                            (50001, float('inf'), 0.02),
-                        ],
+                        "rate": 0.0306,
+                    },
+                    "cecil": {
+                        "rate": 0.0275,
+                    },
+                    "baltimore_city": {
+                        "rate": 0.0320,
                     },
                     "baltimore_county": {
                         "rate": 0.0320,
@@ -85,8 +87,8 @@ STATE_TAX_DATA = {
                     "talbot": {
                         "rate": 0.0240,
                     },
-                    "cecil": {
-                        "rate": 0.0275,
+                    "carroll": {
+                        "rate": 0.0303,
                     },
                     "default": 0.0320,
                 },
