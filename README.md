@@ -29,3 +29,15 @@ A **Tax Calculator** built with Django to help users calculate and manage their 
 - **Deployment**: Hosted on a digital ocean droplet (URL below).
 
 ---
+
+## Roadmap
+- [ ] Add support calculating estimated payments for self-employed users.
+- [ ] Allow users to save tax estimations.
+- [ ] User authentication for personalized estimation management.
+
+---
+
+## License
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
