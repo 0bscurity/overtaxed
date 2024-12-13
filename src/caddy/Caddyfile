@@ -1,5 +1,5 @@
 {
-  email hawk.andrew.work@gmail.com
+  email os.getenv("EMAIL")
 }
 
 https://overtaxedonline.com {
