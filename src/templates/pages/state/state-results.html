@@ -20,10 +20,10 @@
 
     <div class="collapse border border-base-300 bg-base-100 rounded-box mt-4 collapse-open">
     <input type="checkbox">
-    <div class="collapse-title text-lg font-medium">
+    <div class="collapse-title text-lg font-medium px-2 sm:px-4">
       Tax Breakdown
     </div>
-    <div class="collapse-content">
+    <div class="collapse-content px-2 sm:px-4">
       <p style="font-weight: 600; font-size: 17px">Taxable Income</p>
       <p class="flex justify-between">Gross Income <strong>${{ total_income|intcomma }}</strong></p>
       <p class="ms-2 flex justify-between">Standard Deduction <strong>-${{ standard_deduction|intcomma }}</strong></p>
@@ -47,13 +47,13 @@
 
       <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box mt-4">
         <input type="checkbox">
-        <div class="collapse-title text-lg font-medium">
+        <div class="collapse-title text-lg font-medium px-1 sm:px-4">
           Bracket Breakdown
         </div>
-        <div class="collapse-content">
+        <div class="collapse-content px-1 sm:px-4">
 
           <p class="mb-3" style="font-weight: 600; font-size: 17px">State breakdown</p>
-          <table class="mb-3">
+          <table class=" table-auto mb-3">
             <thead>
             <tr>
               <th>Bracket Lower</th>
@@ -77,7 +77,7 @@
           </table>
 
           <p class="mb-3" style="font-weight: 600; font-size: 17px">County breakdown</p>
-          <table>
+          <table class=" table-auto">
             <thead>
             <tr>
               <th>Bracket Lower</th>
