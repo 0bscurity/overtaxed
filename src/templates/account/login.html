@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+  <div class="container mx-auto px-2 py-2 xl:py-6 xl:px-16">
+
+    <!-- Login Card -->
+    <div class="bg-base-200 shadow-lg w-full max-w-md p-8 mx-auto" style="border-radius: 12px">
+      <!-- Logo -->
+      <div class="flex justify-start mb-6">
+        <img src="{% static 'graphics/Overtaxed_color.svg' %}" alt="OverTaxed Logo" style="max-width: 110px">
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-2xl font-semibold text-start mb-2 text-gray-200">Log in to OverTaxed</h2>
+      <p class="text-gray-400 text-start mb-6 text-sm">Please log in to access your account.</p>
+
+      <!-- Social Login Buttons -->
+      <div class="space-y-2 mb-8">
+        <a href="{% provider_login_url 'google' %}"
+            class="w-full btn btn-white btn-outline">
+          <img src="{% static 'graphics/google_icon.png' %}" alt="Google"
+               class="h-5 w-5 mr-2">
+          Log in with Google
+        </a>
+      </div>
+
+      <!-- Separator -->
+      <div class="divider">OR</div>
+
+      <!-- Login Form -->
+      <form method="post" class="space-y-3">
+        {% csrf_token %}
+
+        <!-- Email Field -->
+        <div class="form-control">
+          <label class="label" for="{{ form.login.id_for_label }}">
+            <span class="label-text">Email</span>
+          </label>
+          <input id="{{ form.login.id_for_label }}" name="{{ form.login.html_name }}" type="email"
+                 value="{{ form.login.value|default:'' }}"
+                 class="input input-bordered w-full"
+                 placeholder="Email">
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-control">
+          <label class="label" for="{{ form.password.id_for_label }}">
+            <span class="label-text">Password</span>
+          </label>
+          <input id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" type="password"
+                 class="input input-bordered w-full"
+                 placeholder="Password">
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-3">
+          <button type="submit" class="btn btn-primary w-full">
+            Log in
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+

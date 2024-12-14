@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-white {
+    @apply btn btn-outline text-white border-white hover:bg-white hover:text-black;
+  }
+}
