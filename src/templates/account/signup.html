@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% load form_tags %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+
+  <div class="container mx-auto px-2 py-2 xl:py-6 xl:px-16">
+
+    <div class="bg-base-200 shadow-lg w-full max-w-md p-8 mx-auto" style="border-radius: 12px">
+      <div class="flex justify-start mb-6">
+        <img src="{% static 'graphics/overtaxed_color.svg' %}" alt="OverTaxed Logo" style="max-width: 110px">
+      </div>
+
+      <h2 class="text-2xl font-semibold text-start mb-6 text-gray-200">Create an OverTaxed account</h2>
+
+      <div class="space-y-2 mb-8">
+        <a href="{% provider_login_url 'google' %}"
+           class="w-full btn btn-white btn-outline">
+          <img src="{% static 'graphics/google_logo.png' %}" alt="Google"
+               class="h-5 w-5 mr-2">
+          Sign up with Google
+        </a>
+      </div>
+
+      <div class="divider">OR</div>
+
+      <form method="post" action="{% url 'account_signup' %}" class="space-y-4">
+        {% csrf_token %}
+
+        <div class="form-control">
+          <label class="label" for="id_email">
+            <span class="label-text">Email</span>
+          </label>
+          {{ form.email|addclass:"input input-bordered w-full" }}
+          {% if form.email.errors %}
+            <p class="text-sm text-red-500 mt-2">
+              {{ form.email.errors|first }}
+            </p>
+          {% endif %}
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="id_password1">
+            <span class="label-text">Password</span>
+          </label>
+          {{ form.password1|addclass:"input input-bordered w-full" }}
+          {% if form.password1.errors %}
+            <p class="text-sm text-red-500 mt-2">
+              {{ form.password1.errors|first }}
+            </p>
+          {% endif %}
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="id_password2">
+            <span class="label-text">Confirm Password</span>
+          </label>
+          {{ form.password2|addclass:"input input-bordered w-full" }}
+          {% if form.password2.errors %}
+            <p class="text-sm text-red-500 mt-2">
+              {{ form.password2.errors|first }}
+            </p>
+          {% endif %}
+        </div>
+
+        {% if form.non_field_errors %}
+          <div class="alert alert-error p-4 mb-4 rounded-lg">
+            {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                {{ error }}
+              {% endfor %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="pt-3">
+          <button type="submit" class="btn btn-primary w-full">
+            Create Account
+          </button>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+{% endblock %}
+

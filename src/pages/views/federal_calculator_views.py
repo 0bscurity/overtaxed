@@ -8,7 +8,7 @@ from pages.views.federal_tax_data import FEDERAL_TAX_DATA
 
 
 class HomePageView(TemplateView):
-    template_name = 'partials/home.html'
+    template_name = 'partials/../../templates/pages/home.html'
 
 
 class FederalCalculatorView(TemplateView):
