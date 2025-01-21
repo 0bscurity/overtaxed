@@ -13,7 +13,7 @@ A **Tax Calculator** built with Django to help users calculate and manage their 
 
 ## Features
 
-- **Customizalbe Federal and State Tax Calculations**: Allows users to calculate taxes based on income and other parameters.
+- **Customizable Federal and State Tax Calculations**: Allows users to calculate taxes based on income and other parameters.
 - **Dynamic Tax Rates**: Support for dynamic tax rates to accommodate different scenarios.
 - **User Input**: Accepts relevant inputs such as income, expenses, and tax credits.
 - **Summary Reports**: Displays breakdown of taxable amounts, deductions, and final taxes owed.
