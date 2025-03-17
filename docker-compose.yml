@@ -18,6 +18,8 @@ services:
 
   caddy:
     image: caddy:latest
+    env_file:
+      - .env
     container_name: caddy
     volumes:
       - ./src/caddy/Caddyfile:/etc/caddy/Caddyfile
